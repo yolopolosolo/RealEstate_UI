@@ -1,36 +1,58 @@
 import { useState } from "react"
 import "./Navbar.scss"
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [open, setOpen]= useState(false);
 
+  const user = true;
+  const profileImage = "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
+
   return (
     <nav>
         <div className="left">
-          <a href="/" className="logo">
+          <Link to={"/"} className="logo">
             <img src="/logo.png" alt="" />
             <span> Skyline</span>
-          </a>
-          <a href="">Home</a>
-          <a href="">About</a>
-          <a href="">Contact</a>
-          <a href="">Agents</a>
+          </Link>
+
+          <Link to={"/"}>Home</Link>
+          <Link to={"/"}>About</Link>
+          <Link to={"/"}>Contact</Link>
+          <Link to={"/"}>Agents</Link>
 
         </div>
         <div className="right">
-          <a href="">Sign In</a>
-          <a href="" className="register">Sign Up</a>
+          { 
+            user 
+            ? 
+            (
+            <div className="user">
+              <img src={profileImage} alt="" />
+              <span>John Doe</span>
+              <Link to={"/profile"} className="profile">
+                <div className="notification">3</div>
+                <span>Profile</span>
+              </Link>
+            </div>
+            ) 
+            :
+            (<>
+            <Link to={"/"}>Sign In</Link>
+            <Link to={"/"} className="register">Sign Up</Link>
+            </>)
+          }
 
           <div className="menuIcon">
             <img src="/menu.png" alt="" onClick={()=>setOpen((prev)=>!prev)}/>
           </div>
           <div className={open? "menu active" : "menu"}>
-            <a href="/">Home</a>
-            <a href="">About</a>
-            <a href="">Contact</a>
-            <a href="">Agents</a>
-            <a href="">Sign In</a>
-            <a href="">Sign Up</a>
+            <Link to={"/"}>Home</Link>
+            <Link to={"/"}>About</Link>
+            <Link to={"/"}>Contact</Link>
+            <Link to={"/"}>Agents</Link>
+            <Link to={"/"}>Sign In</Link>
+            <Link to={"/"}>Sign Up</Link>
           </div>
         </div>
     </nav>

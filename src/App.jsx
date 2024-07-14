@@ -1,6 +1,7 @@
 import Home from "./routes/homePage/Home.jsx"
 import Layout from "./routes/layout/Layout.jsx";
 import List from "./routes/listPage/List.jsx";
+import Profile from "./routes/profilePage/Profile.jsx";
 import Single from "./routes/singlePage/Single.jsx";
 
 import {
@@ -28,6 +29,10 @@ function App() {
         {
           path:"/:id",
           element: <Single/>
+        },
+        {
+          path:"/profile",
+          element: <Profile/>
         }
       ]
     }
