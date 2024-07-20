@@ -60,7 +60,12 @@ nav{
         }
 
         .register{
+            height: max-content;
             background-color: #fece51;
+
+            @include sm{
+                display: none;
+            }
         }
 
         a{

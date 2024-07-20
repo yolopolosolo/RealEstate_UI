@@ -1,13 +1,18 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import "./Navbar.scss"
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/authContext";
+import { useNotificationStore } from "../../lib/notificationStore";
 
 function Navbar() {
   const [open, setOpen]= useState(false);
+  const {currentUser} = useContext(AuthContext);
 
-  const user = true;
-  const profileImage = "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2";
-
+  
+  const fetch = useNotificationStore((state) => state.fetch);
+  const number = useNotificationStore((state) => state.number);
+  if(currentUser) fetch();
+  
   return (
     <nav>
         <div className="left">
@@ -24,22 +29,22 @@ function Navbar() {
         </div>
         <div className="right">
           { 
-            user 
+            currentUser 
             ? 
             (
             <div className="user">
-              <img src={profileImage} alt="" />
-              <span>John Doe</span>
+              <img src={currentUser.avatar || "/noavatar.jpg"} alt="" />
+              <span>{currentUser.username}</span>
               <Link to={"/profile"} className="profile">
-                <div className="notification">3</div>
+              {number > 0 && <div className="notification">{number}</div>}
                 <span>Profile</span>
               </Link>
             </div>
             ) 
             :
             (<>
-            <Link to={"/"}>Sign In</Link>
-            <Link to={"/"} className="register">Sign Up</Link>
+            <Link to={"/login"}>Sign In</Link>
+            <Link to={"/register"} className="register">Sign Up</Link>
             </>)
           }
 
@@ -51,8 +56,8 @@ function Navbar() {
             <Link to={"/"}>About</Link>
             <Link to={"/"}>Contact</Link>
             <Link to={"/"}>Agents</Link>
-            <Link to={"/"}>Sign In</Link>
-            <Link to={"/"}>Sign Up</Link>
+            <Link to={"/login"}>Sign In</Link>
+            <Link to={"/register"}>Sign Up</Link>
           </div>
         </div>
     </nav>

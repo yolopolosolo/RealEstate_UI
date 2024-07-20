@@ -1,12 +1,11 @@
-import { listData } from "../../lib/dummydata"
 import Cards from "../CardComp/Cards"
 import "./MyList.scss"
 
-function MyList() {
+function MyList({items}) {
   return (
     <div className="list">
         {
-            listData.map(
+            items.map(
                 item=>
                 (
                     <Cards key={item.id} item={item}/>
